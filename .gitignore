@@ -1,0 +1,6 @@
+# The design_ss checkout this skill clones on first use (~350 MB with its
+# dependencies). It is a separate repository and is never committed here.
+design_ss/
+
+# macOS Finder droppings.
+.DS_Store
