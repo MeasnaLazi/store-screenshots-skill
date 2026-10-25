@@ -50,26 +50,44 @@ Targets: `iphone` and `ipad` for the App Store; `phone`, `tablet_7` and
 
 ## Requirements
 
-- An agent that supports `SKILL.md` skills (Claude Code, for example)
+- An agent that supports `SKILL.md` skills (Claude Code, Codex, Cursor, Gemini CLI…)
 - `git`, and Node.js 22 (20 is the minimum)
 - About 350 MB of disk, and a network connection for the first setup
 - Developed and tested on macOS. Linux should work. Windows is untested.
 
 ## Install
 
-Put this folder in your agent's skills folder. For Claude Code, a personal
-install that works in every project:
+From your app project's root, with [`npx skills`](https://github.com/vercel-labs/skills):
 
 ```bash
-git clone https://github.com/MeasnaLazi/store-screenshots-skill.git ~/.claude/skills/store-screenshots
+npx skills add MeasnaLazi/store-screenshots-skill
 ```
 
-The repository is `store-screenshots-skill`, and the skill inside it is named
-`store-screenshots`. Clone it into a folder with the skill's name, as above.
+It installs the skill into this project only, and asks which of your agents to
+add it to (Claude Code, Codex, Cursor, Gemini CLI and others). Start a new agent
+session afterwards, because skills load when a session starts.
 
-A personal install is recommended. If you install the skill inside a project
-instead, add `design_ss/` to that project's `.gitignore`, because the design_ss
-checkout lives inside the skill folder.
+**Then add this line to your project's `.gitignore`.** design_ss is cloned
+inside the skill folder on first use (about 350 MB with its dependencies), and
+it should not be committed to your app's repository:
+
+```gitignore
+**/store-screenshots/design_ss/
+```
+
+<details>
+<summary>Without npx (git)</summary>
+
+Clone it into your agent's skills folder in the project, in a folder named
+after the skill (`store-screenshots`). For Claude Code:
+
+```bash
+git clone https://github.com/MeasnaLazi/store-screenshots-skill.git .claude/skills/store-screenshots
+```
+
+Add the same `.gitignore` line as above.
+
+</details>
 
 ## Use
 
@@ -90,12 +108,21 @@ When a new version of this skill pins a newer one, the agent notices the
 mismatch and asks before replacing the checkout. It moves your `input/` and
 `strips/` across first.
 
-Reinstalling the skill deletes the `design_ss/` folder inside it, including
-your input and output. Copy anything you want to keep first.
+```bash
+npx skills update
+```
+
+**Updating or reinstalling the skill can delete the `design_ss/` folder inside
+it, including your input and output.** Copy `design_ss/input/` and any PNGs you
+want to keep out of the skill folder first.
 
 ## Uninstall
 
-Delete the skill folder. design_ss and everything it downloaded live inside it.
+```bash
+npx skills remove store-screenshots
+```
+
+Or delete the skill folder. design_ss and everything it downloaded live inside it.
 The headless Chromium is cached by Playwright outside the folder (on macOS,
 `~/Library/Caches/ms-playwright/`); delete that too if nothing else uses it.
 
