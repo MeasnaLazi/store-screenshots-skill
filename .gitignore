@@ -4,3 +4,6 @@ design_ss/
 
 # macOS Finder droppings.
 .DS_Store
+
+# The Agensi upload, built from SKILL.md, README.md and LICENSE.
+*.zip
