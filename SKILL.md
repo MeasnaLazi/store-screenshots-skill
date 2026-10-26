@@ -8,6 +8,7 @@ description: >-
   design_ss inside this skill's folder, tells the user what to put in the input
   folder, hands the design work to design_ss's own instructions, and points the
   user to the finished PNGs.
+license: MIT
 ---
 
 # Store screenshots
@@ -30,6 +31,18 @@ to the output**. Between those, answer the user's questions about design_ss.
 
 Always give the user **absolute** paths, never `~` or relative ones, so they
 can paste them into Finder or a terminal.
+
+## Network access
+
+Only the one-time setup in Step 1 uses the network, and only after the user
+agrees. It contacts:
+
+- `https://github.com`: cloning design_ss
+- `https://registry.npmjs.org`: `npm install`
+- `https://cdn.playwright.dev` and `https://playwright.download.prss.microsoft.com`:
+  the headless Chromium download
+
+Designing, checking and rendering are offline.
 
 ## Step 1: Set up (skip when done)
 
